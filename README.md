@@ -1,4 +1,2 @@
-# math
-Math
-
- 
+# Homepage
+Homepage for sunzhongmou.com

@@ -1,55 +1,31 @@
 {
-  "name": "@sunzhongmou/mf-math",
+  "name": "@sunzhongmou/homepage",
   "version": "0.1.0",
-  "description": "Math component for micro frontend ",
-  "main": "src/index.js",
-  "scripts": {
-    "format": "prettier --write src",
-    "test": "react-app-rewired test --watchAll=false",
-    "start": "PORT=4101 react-app-rewired start",
-    "build": "react-app-rewired build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sunzhongmou/mf-math.git"
-  },
-  "keywords": [
-    "micro",
-    "frontend",
-    "react",
-    "componment"
-  ],
+  "private": true,
+  "description": "Micro frontend home service",
+  "repository": "git@github.com:sunzhongmou/mf-home.git",
   "author": "me@sunwei.xyz",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sunzhongmou/mf-math/issues"
-  },
-  "homepage": "https://math.sunzhongmou.com",
   "dependencies": {
-    "@sunzhongmou/math": "^0.2.0",
     "history": "^5.0.0",
-    "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "react-app-polyfill": "^2.0.0",
+    "react-app-polyfill": "^1.0.6",
     "react-app-rewire-micro-frontends": "^0.0.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.0",
-    "styled-components": "^5.2.1"
+    "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   },
-  "devDependencies": {
-    "@types/jest": "^25.2.3",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
-    "jest-enzyme": "^7.1.2",
-    "jest-fetch-mock": "^3.0.3",
-    "prettier": "^2.0.5",
-    "react-app-rewired": "^2.1.6"
-  },
-  "config-overrides-path": "node_modules/react-app-rewire-micro-frontends",
-  "prettier": {
-    "singleQuote": true,
-    "trailingComma": "all"
+  "homepage": "https://sunzhongmou.com",
+  "scripts": {
+    "format": "prettier --write src",
+    "start": "PORT=4001 react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --watchAll=false",
+    "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -58,6 +34,7 @@
     "production": [
       ">0.2%",
       "not dead",
+      "not ie <= 11",
       "not op_mini all"
     ],
     "development": [
@@ -65,5 +42,21 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "config-overrides-path": "node_modules/react-app-rewire-micro-frontends",
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "@types/react-router": "^5.1.7",
+    "@types/react-router-dom": "^5.1.5",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jest-enzyme": "^7.1.2",
+    "jest-fetch-mock": "^3.0.3",
+    "prettier": "^2.0.5",
+    "react-app-rewired": "^2.1.6"
   }
 }

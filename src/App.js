@@ -1,63 +1,49 @@
 import React from 'react';
-import { Router } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
-import styled from 'styled-components';
-import Loading from './components/Loading';
-import Category from './components/Category';
-import QuestionList from './components/QuestionList';
-import {ADD_SUB_WITHIN_TWENTY} from './helper';
-import { userService } from './service/math.service';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const MainColumn = styled.div.attrs({
-  className: 'col-lg-9',
-})`
-  max-width: 1150px;
-  margin: 0 auto;
-`;
+import './App.css';
+import MicroFrontend from './_components/MicroFrontend';
+import About from './pages/About';
+import { NavBar, Footer } from "./_components"
 
-const defaultHistory = createBrowserHistory();
+const {
+  REACT_APP_COMPONENT_HOST: componentHost,
+} = process.env;
+
+const Component = ({ history }) => (
+  <MicroFrontend history={history} host={componentHost} name="Component" />
+);
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      category: ADD_SUB_WITHIN_TWENTY,
-      questions: [],
-      loading: true,
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      questions: userService.getQuestions(this.state.category),
-      loading: false,
-    });
-  }
-
-  setCategory = (name) => {
-    this.setState({
-      questions: userService.getQuestions(name),
-      loading: false,
-      category: name,
-    });
-  };
-
   render() {
-    const { questions, loading } = this.state;
-
-    if (loading) {
-      return <Loading />;
-    }
-
+    const {alert} = this.props;
     return (
-      <Router history={this.props.history || defaultHistory}>
-        <MainColumn>
-          <Category setCategory={this.setCategory} />
-          <QuestionList questions={questions} />
-        </MainColumn>
-      </Router>
+      <div className="app" data-test="appComponent">
+        {alert.message && <div className={`alert ${alert.type}`}>{alert.message}</div>}
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <NavBar/>
+          <Switch>
+            <Route path={process.env.PUBLIC_URL + "/about"} render={About}/>
+            <Route path="/comics" component={Component}/>
+            <Redirect from="/" to="/about"/>
+            <Redirect from="*" to="/"/>
+          </Switch>
+          <Footer/>
+        </BrowserRouter>
+      </div>
     );
   }
 }
 
-export default App;
+
+function mapState(state) {
+  const { alert } = state;
+  return { alert };
+}
+
+const actionCreators = {
+};
+
+const connectedApp = connect(mapState, actionCreators)(App);
+export { connectedApp as App };

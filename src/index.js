@@ -1,19 +1,16 @@
 import 'react-app-polyfill/ie11';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { Provider } from 'react-redux';
+import { store } from './_helper';
+import { App } from './App';
 import * as serviceWorker from './serviceWorker';
+import './index.css';
 
-window.renderComponent = (containerId, history) => {
-  ReactDOM.render(
-    <App history={history} />,
-    document.getElementById(containerId),
-  );
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root'));
 
-  serviceWorker.unregister();
-};
-
-window.unmountComponent = (containerId) => {
-  ReactDOM.unmountComponentAtNode(document.getElementById(containerId));
-};
+serviceWorker.unregister();
