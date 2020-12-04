@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import { alert } from './alert.reducer';
 
 const rootReducer = combineReducers({
-  alert
+  alert,
 });
 
 export default rootReducer;

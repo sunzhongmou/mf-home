@@ -1,12 +1,41 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import App from '../App';
+import { App } from '../App';
+import { createTestStore } from '../_helper/store';
 
-it('given app when component did mount then component rendered', async () => {
-  const app = mount(<App />);
+jest.mock('../_components/MicroFrontend', () => {
+  const MicroFrontend = () => <div />;
+  return MicroFrontend;
+});
 
-  await new Promise(setTimeout);
-  app.update();
+describe('App', () => {
+  let store;
+  let app;
 
-  expect(app).toIncludeText('类别');
+  const initialState = {
+    alert: {
+      type: 'alert-none',
+      message: 'ok',
+    },
+  };
+
+  beforeEach(() => {
+    store = createTestStore(initialState);
+    app = mount(<App store={store} />);
+  });
+
+  const getCurrentRoute = (app) =>
+    app.find('Router').prop('history').location.pathname;
+
+  const findByTestAttribute = (component, attr) =>
+    component.find(`[data-test='${attr}']`);
+
+  it('Should render component without errors', () => {
+    const component = findByTestAttribute(app, 'appComponent');
+    expect(component.length).toBe(1);
+  });
+
+  it('can render the browse micro frontend', () => {
+    expect(getCurrentRoute(app)).toEqual('/about');
+  });
 });
